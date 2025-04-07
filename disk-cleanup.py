@@ -30,7 +30,7 @@ def run_command(command):
 
 def clean_disk(disk):
     print("Cleaning disk:", disk)
-    run_command("sgdisk --zap-all " + disk)
+    run_command("/usr/sbin/sgdisk --zap-all " + disk)
     run_command("dd if=/dev/zero of=" + disk + " bs=1M count=1000")
     run_command("blkdiscard " + disk)
 
