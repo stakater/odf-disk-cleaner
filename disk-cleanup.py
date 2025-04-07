@@ -20,11 +20,11 @@ args = ap.parse_args()
 
 
 def run_command(command):
-    split_command = command.split(' ')
-    result = subprocess.run(split_command,
+    result = subprocess.run(command,
                             capture_output=True,
                             check=True,
-                            text=True)
+                            text=True,
+                            shell=True)
     print(result.stdout)
 
 
