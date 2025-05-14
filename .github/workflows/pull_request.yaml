@@ -28,10 +28,19 @@ jobs:
           checkName: "Python Lint"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  build:
+  build-python:
     uses: stakater/.github/.github/workflows/pull_request_container_build.yaml@v0.0.131
     with:
-      DOCKER_FILE_PATH: Dockerfile
+      DOCKER_FILE_PATH: Dockerfile-python
+      CONTAINER_REGISTRY_URL: ghcr.io/stakater
+    secrets:
+      CONTAINER_REGISTRY_USERNAME: ${{ github.actor }}
+      CONTAINER_REGISTRY_PASSWORD: ${{ secrets.GHCR_TOKEN }}
+      SLACK_WEBHOOK_URL: ${{ secrets.STAKATER_DELIVERY_SLACK_WEBHOOK }}
+  build-shell:
+    uses: stakater/.github/.github/workflows/pull_request_container_build.yaml@v0.0.131
+    with:
+      DOCKER_FILE_PATH: Dockerfile-shell
       CONTAINER_REGISTRY_URL: ghcr.io/stakater
     secrets:
       CONTAINER_REGISTRY_USERNAME: ${{ github.actor }}
