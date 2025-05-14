@@ -20,17 +20,17 @@ args = ap.parse_args()
 
 
 def run_command(command):
-    split_command = command.split(' ')
-    result = subprocess.run(split_command,
+    result = subprocess.run(command,
                             capture_output=True,
                             check=True,
-                            text=True)
+                            text=True,
+                            shell=True)
     print(result.stdout)
 
 
 def clean_disk(disk):
     print("Cleaning disk:", disk)
-    run_command("sgdisk --zap-all " + disk)
+    run_command("/usr/sbin/sgdisk --zap-all " + disk)
     run_command("dd if=/dev/zero of=" + disk + " bs=1M count=1000")
     run_command("blkdiscard " + disk)
 
