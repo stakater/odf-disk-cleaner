@@ -31,16 +31,16 @@ FINAL_CLEANUP=${FINAL_CLEANUP:-"y"}
 
 for DISK in $DISKS; do
   echo "Cleaning $DISK"
-  echo sgdisk --zap-all $DISK
-  echo dd if=/dev/zero of=$DISK bs=1M count=1000
-  echo blkdiscard $DISK
+  sgdisk --zap-all $DISK
+  dd if=/dev/zero of=$DISK bs=1M count=1000
+  blkdiscard $DISK
 done
 
 if [ "${FINAL_CLEANUP}" == 'y' ]; then
   echo "Final cleanup"
-  echo rm -rf /dev/disk/by-id/*
-  echo rm -rf /mnt/local-storage/
-  echo rm -rf /var/lib/rook
-  echo rm -rf /dev/ceph-*
-  echo rm -rf /dev/mapper/ceph-*
+  rm -rf /dev/disk/by-id/*
+  rm -rf /mnt/local-storage/
+  rm -rf /var/lib/rook
+  rm -rf /dev/ceph-*
+  rm -rf /dev/mapper/ceph-*
 fi
